@@ -3,6 +3,9 @@
     * [X] Implement gScore -- distance from start node
     * [X] Implement fScore -- h + g
     * [X] getNeighbors
+        * [X] G Score must be updated
+            * The cost of moving tile X is the value of X
+            * The g_score for the neighbor node is "temp"
     * [X] Implement printNode
     * [X] Make node hashable
         * [X] __hash__

@@ -49,8 +49,11 @@ class Node:
         res = 0
         # Count out-of-place tiles
         for i in range(len(self.grid)):
-            if self.grid[i] != Node.GOAL_GRID[i]:
+            # Do not count the blank tile to ensure Admissibility
+            # Increment the count for each tile that does not match the goal state
+            if self.grid[i] not in [0, Node.GOAL_GRID[i]]:
                 res += 1
+
         return res
     #end-h_score
 
@@ -77,59 +80,55 @@ class Node:
         #-----------------------------------------------------
         # Check if the blank can be moved to the left
         if blankPosition not in [0, 3, 6]:
-            # Create a deep copy
-            tempGrid = copy.deepcopy(self.grid) 
-
+            tempGrid = copy.deepcopy(self.grid) # Create a deep copy
             # Swap the blank tile with the tile on the LEFT
-            temp = tempGrid[blankPosition]
-            tempGrid[blankPosition] = tempGrid[blankPosition - 1]
-            tempGrid[blankPosition - 1] = temp
+            temp = tempGrid[blankPosition - 1]
+            tempGrid[blankPosition - 1] = tempGrid[blankPosition]
+            tempGrid[blankPosition] = temp
             # Create the Node object
             left = Node(tempGrid)
+            left.g_score = temp + self.g_score
 
         # Up -- move the blank tile up (if possible)
         #-----------------------------------------------------
         # Check if the blank can be moved up
         if blankPosition not in [0, 1, 2]:
-            # Create a deep copy
-            tempGrid = copy.deepcopy(self.grid) 
-
+            tempGrid = copy.deepcopy(self.grid) # Create a deep copy
             # Swap the blank tile with the tile on the up
-            temp = tempGrid[blankPosition]
-            tempGrid[blankPosition] = tempGrid[blankPosition - 3]
-            tempGrid[blankPosition - 3] = temp
+            temp = tempGrid[blankPosition - 3]
+            tempGrid[blankPosition - 3] = tempGrid[blankPosition]
+            tempGrid[blankPosition] = temp
             # Create the Node object
             up = Node(tempGrid)
+            up.g_score = temp + self.g_score
 
         # Right -- move the blank tile to the right (if possible)
         #-----------------------------------------------------
         # Check if the blank can be moved to the right
         if blankPosition not in [2, 5, 8]:
-            # Create a deep copy
-            tempGrid = copy.deepcopy(self.grid) 
-
+            tempGrid = copy.deepcopy(self.grid) # Create a deep copy
             # Swap the blank tile with the tile on the right
-            temp = tempGrid[blankPosition]
-            tempGrid[blankPosition] = tempGrid[blankPosition + 1]
-            tempGrid[blankPosition + 1] = temp
+            temp = tempGrid[blankPosition + 1]
+            tempGrid[blankPosition + 1] = tempGrid[blankPosition]
+            tempGrid[blankPosition] = temp
             # Create the Node object
             right = Node(tempGrid)
+            right.g_score = temp + self.g_score
 
         # Down -- move the blank tile down (if possible)
         #-----------------------------------------------------
         # Check if the blank can be moved down
         if blankPosition not in [6, 7, 8]:
-            # Create a deep copy
-            tempGrid = copy.deepcopy(self.grid) 
-
+            tempGrid = copy.deepcopy(self.grid) # Create a deep copy
             # Swap the blank tile with the tile on the down
-            temp = tempGrid[blankPosition]
-            tempGrid[blankPosition] = tempGrid[blankPosition + 3]
-            tempGrid[blankPosition + 3] = temp
+            temp = tempGrid[blankPosition + 3]
+            tempGrid[blankPosition + 3] = tempGrid[blankPosition]
+            tempGrid[blankPosition] = temp
             # Create the Node object
             down = Node(tempGrid)
+            down.g_score = temp + self.g_score
 
-        return [left, up, right, down]
+        return [x for x in [left, up, right, down] if x is not None]
     #end-get_neighbors
 
 #end-class Node
@@ -141,10 +140,19 @@ class PuzzleSolver:
     '''
     def __init__(self, startNode, goalNode):
         self.start = startNode
+        self.start.g_score = 0
         Node.GOAL_GRID = goalNode.grid           # Set the static variable GOAL_GRID
 
     def a_star():
-        print("")
+        openList = []
+        closedList = []
+
+        openList.append(self.start)             # Insert the start node into the Open list
+
+        # Until openList becomes empty
+        while openList:
+
+
     #end-a_star
 
 
@@ -188,26 +196,6 @@ def main():
     # Create the PuzzleSolver
     puzzleSolver = PuzzleSolver(startNode, goalNode)
     
-
-    # Test the hash override
-    # ---------------------------
-    l1 = []
-    l1.append(startNode)
-    print("Start node inserted to l1")
-    print(l1)
-
-    tempGrid = copy.deepcopy(start)
-    node2 = Node(tempGrid)
-    print("\n Created another node")
-
-    print("l1[0] is node2: {}".format(l1[0] is node2))
-    print("l1[0] == node2: {}".format(l1[0] == node2))
-    print("node2 in l1: {}".format(node2 in l1))
-
-
-
-
-
     
 
     # # Invoke solver
