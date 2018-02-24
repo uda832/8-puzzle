@@ -38,7 +38,6 @@ class Node:
     def g_score(self, value):
         self._g = value
 
-
     # Heuristic value -- Hamming distance (num of out-of-place tiles)
     @property
     def h_score(self):
@@ -56,9 +55,6 @@ class Node:
 
         return res
     #end-h_score
-
-
-
         
     @property
     def f_score(self):
@@ -159,8 +155,6 @@ class PuzzleSolver:
 
             # Goal Found -- return the path
             if curNode == self.goal:
-                print("Goal found:\n{}".format(curNode))
-                print("Shortest distance: {}".format(curNode.f_score))
                 return curNode.f_score
                 # return buildPath(curNode)       # IMPLEMENT_ME
 
@@ -201,7 +195,7 @@ def read_inputs(fileName):
                 if x != "\n":
                     start.append(int(x))
         
-        next(f) # Skip break
+        next(f) # Skip the separator empty line
 
         #Read goal state's grid
         for l in range(3):
@@ -213,50 +207,30 @@ def read_inputs(fileName):
 #end-read_inputs
                
         
-        
-
-
 def main():
-    print("Starting Main")
-
     # Read inputs -- the start and goal states
     #-------------------------------------------
     start, goal = read_inputs("input.txt")
     startNode = Node(start)
     goalNode = Node(goal)
 
+    print("Start state: ")
+    print(startNode)
+
+    print("Goal state: ")
+    print(goalNode)
 
     # Create the PuzzleSolver
     puzzleSolver = PuzzleSolver(startNode, goalNode)
-    
-    
 
-    # Invoke solver
-    puzzleSolver.a_star()
+    # Invoke the solver
+    result = puzzleSolver.a_star()
 
-
-
-
-    print("Ending Main")
-
+    print("Solution: The shortest path cost is: {}".format(result))
 #end-main
-
-
-# Test Driver
-def test():
-    print("Hello World")
-
-    grid = [0,1,2,
-            3,4,5,
-            6,7,8]
-
-    testNode = Node(grid)
-    testNode.print_grid()
-
 
 
 
 
 # Invoke driver
-# test()
 main()
