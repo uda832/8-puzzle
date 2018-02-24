@@ -2,7 +2,7 @@
     * [X] Implement hScore -- heuristics (hamming distance)
     * [X] Implement gScore -- distance from start node
     * [X] Implement fScore -- h + g
-    * [ ] getNeighbors
+    * [X] getNeighbors
     * [ ] Implement printNode
     * [ ] Make node hashable
 
