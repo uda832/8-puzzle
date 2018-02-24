@@ -11,13 +11,14 @@
         * [X] __hash__
         * [X] __eq__
 
-# [ ] Implement PuzzleSolver
-    * [ ] Constructor
-    * [ ] a_star
-        * OpenList
-        * ClosedList
-    * [ ] 
+# [o] Implement PuzzleSolver
+    * [X] Constructor
+    * [X] a_star
 
-# [ ] Implment driver
-    * [ ] Read start and goal state from input file
-    * [ ] Ini
+# [.] Implment driver
+    * [X] Read start and goal state from input file
+
+# [.] TEST
+    * [X] Default input
+    * [ ] Alternative input
+    * [ ] Arbitrary input

@@ -141,18 +141,51 @@ class PuzzleSolver:
     def __init__(self, startNode, goalNode):
         self.start = startNode
         self.start.g_score = 0
+        self.goal = goalNode
         Node.GOAL_GRID = goalNode.grid           # Set the static variable GOAL_GRID
 
-    def a_star():
+    def a_star(self):
         openList = []
         closedList = []
+        parents = {}
 
         openList.append(self.start)             # Insert the start node into the Open list
 
         # Until openList becomes empty
         while openList:
+            openList.sort(reverse=True, key=lambda x: x.f_score) # sort the openList to emulate a min-heap. Reverse the order so the .pop() can be used for convenience
+            curNode = openList.pop()
+            closedList.append(curNode)
 
+            # Goal Found -- return the path
+            if curNode == self.goal:
+                print("Goal found:\n{}".format(curNode))
+                print("Shortest distance: {}".format(curNode.f_score))
+                return curNode.f_score
+                # return buildPath(curNode)       # IMPLEMENT_ME
 
+            # Iterate over neighbors of the current node
+            for neighbor in curNode.get_neighbors():
+                # Skip if already visited
+                if neighbor in closedList:
+                    continue
+
+                if neighbor not in openList:
+                    # Add to openList if discovered for the first time
+                    openList.append(neighbor)
+                else:
+                    neighborIndex = openList.index(neighbor)
+
+                    # If the current path cost is cheaper than the one found last time
+                    if neighbor.g_score < openList[neighborIndex].g_score:
+                        openList[neighborIndex].g_score = neighbor.g_score
+                        parents[neighbor] = curNode
+
+            #end-for
+        #end-while
+
+        print("Error: Failed to find solution")
+        return -1
     #end-a_star
 
 
@@ -198,8 +231,11 @@ def main():
     
     
 
-    # # Invoke solver
-    # # puzzleSolver.a_star()
+    # Invoke solver
+    puzzleSolver.a_star()
+
+
+
 
     print("Ending Main")
 
