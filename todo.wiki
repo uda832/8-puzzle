@@ -1,0 +1,18 @@
+# [o] Create node class
+    * [X] Implement hScore -- heuristics (hamming distance)
+    * [X] Implement gScore -- distance from start node
+    * [X] Implement fScore -- h + g
+    * [ ] getNeighbors
+    * [ ] Implement printNode
+    * [ ] Make node hashable
+
+# [ ] Implement PuzzleSolver
+    * [ ] Constructor
+    * [ ] a_star
+    * [ ] OpenList
+    * [ ] ClosedList
+    * [ ] 
+
+# [ ] Implment driver
+    * [ ] Read start and goal state from input file
+    * [ ] Ini
