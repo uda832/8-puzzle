@@ -1,16 +1,18 @@
-# [o] Create node class
+# [X] Create node class
     * [X] Implement hScore -- heuristics (hamming distance)
     * [X] Implement gScore -- distance from start node
     * [X] Implement fScore -- h + g
     * [X] getNeighbors
-    * [ ] Implement printNode
-    * [ ] Make node hashable
+    * [X] Implement printNode
+    * [X] Make node hashable
+        * [X] __hash__
+        * [X] __eq__
 
 # [ ] Implement PuzzleSolver
     * [ ] Constructor
     * [ ] a_star
-    * [ ] OpenList
-    * [ ] ClosedList
+        * OpenList
+        * ClosedList
     * [ ] 
 
 # [ ] Implment driver

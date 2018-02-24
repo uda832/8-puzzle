@@ -14,6 +14,21 @@ class Node:
         self.grid = grid    # Note: a grid is a list of integers
         self._g = 0
 
+    # Override comparison op
+    def __eq__(self, otherNode):
+        return tuple(self.grid) == tuple(otherNode.grid)
+
+    # Make Node hashable -- so it could used to in A* to check for existence in open/closed sets
+    def __hash__(self):
+        return hash(tuple(self.grid))
+
+    # Make the node object printable
+    def __str__(self):
+        out = str(self.grid[0:3]) + "\n"       # Row 0
+        out += str(self.grid[3:6]) + "\n"       # Row 0
+        out += str(self.grid[6:9]) + "\n"       # Row 0
+        return out
+
 
     # G-score -- cost/distance from the start node
     @property
@@ -117,13 +132,6 @@ class Node:
         return [left, up, right, down]
     #end-get_neighbors
 
-    # Prints the contents of the grid
-    def print_grid(self):
-        print(self.grid[0:3])       # Row 0
-        print(self.grid[3:6])       # Row 1
-        print(self.grid[6:9])       # Row 2
-        print()
-
 #end-class Node
 
 
@@ -140,8 +148,7 @@ class PuzzleSolver:
     #end-a_star
 
 
-#end-class PuzzleSolver
-
+#end-class PuzzleSolvetempGrid
 
 def read_inputs(fileName):
     start = []
@@ -182,10 +189,26 @@ def main():
     puzzleSolver = PuzzleSolver(startNode, goalNode)
     
 
-    startNode.print_grid()
-    for x in startNode.get_neighbors():
-        if x is not None:
-            x.print_grid()
+    # Test the hash override
+    # ---------------------------
+    l1 = []
+    l1.append(startNode)
+    print("Start node inserted to l1")
+    print(l1)
+
+    tempGrid = copy.deepcopy(start)
+    node2 = Node(tempGrid)
+    print("\n Created another node")
+
+    print("l1[0] is node2: {}".format(l1[0] is node2))
+    print("l1[0] == node2: {}".format(l1[0] == node2))
+    print("node2 in l1: {}".format(node2 in l1))
+
+
+
+
+
+    
 
     # # Invoke solver
     # # puzzleSolver.a_star()
